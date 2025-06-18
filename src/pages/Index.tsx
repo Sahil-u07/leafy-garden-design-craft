@@ -13,13 +13,13 @@ const Index = () => {
       {/* Header */}
       <header className="bg-background/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo - New Paudha Bhai logo with transparent background */}
+          <div className="flex justify-between items-center h-24">
+            {/* Logo - Enhanced Paudha Bhai logo with better visibility */}
             <div className="flex items-center">
               <img 
-                src="/lovable-uploads/e9e8f788-07a7-434c-a63e-6740196180ad.png" 
+                src="/lovable-uploads/5d45b831-8bef-4a01-941e-60e75e8bc270.png" 
                 alt="Paudha Bhai" 
-                className="h-16 w-auto object-contain"
+                className="h-20 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
               />
             </div>
             
