@@ -1,12 +1,156 @@
-import React from 'react';
-import { ArrowRight, Leaf, Truck, Shield, Users, Star, ShoppingCart, Heart, Sun, Moon } from 'lucide-react';
+
+import React, { useState } from 'react';
+import { ArrowRight, Leaf, Truck, Shield, Users, Star, ShoppingCart, Heart, Sun, Moon, Volume2, Mic, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTheme } from '@/components/theme-provider';
 import { Link } from 'react-router-dom';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const Index = () => {
   const { theme, setTheme } = useTheme();
+  const [language, setLanguage] = useState('en');
+  const [isListening, setIsListening] = useState(false);
+
+  const translations = {
+    en: {
+      home: "Home",
+      shop: "Shop",
+      about: "About", 
+      contact: "Contact",
+      getStarted: "Get Started",
+      bringNature: "Bring Nature",
+      toYourHome: "To Your Home",
+      heroDescription: "Discover our collection of beautiful plants that will transform your space into a green paradise. Perfect for beginners and experts alike.",
+      shopPlants: "Shop Plants",
+      learnMore: "Learn More",
+      happyCustomers: "Happy Customers",
+      plantVarieties: "Plant Varieties",
+      rating: "Rating",
+      whyChooseUs: "Why Choose Us?",
+      whyChooseDescription: "We provide the best service and highest quality plants to make your gardening journey successful.",
+      freeDelivery: "Free Delivery",
+      freeDeliveryDesc: "Free delivery on orders over ₹2,000. Get your plants delivered safely to your doorstep.",
+      plantGuarantee: "Plant Guarantee",
+      plantGuaranteeDesc: "30-day guarantee on all plants. We ensure they arrive healthy and thriving.",
+      expertSupport: "Expert Support",
+      expertSupportDesc: "Get advice from our plant experts. We're here to help your plants flourish.",
+      featuredPlants: "Featured Plants",
+      featuredDesc: "Discover our most popular and beautiful plants",
+      addToCart: "Add to Cart",
+      viewAllPlants: "View All Plants",
+      readyToStart: "Ready to Start Your Plant Journey?",
+      readyDescription: "Join thousands of happy customers who have transformed their homes with our beautiful plants. Get started today!",
+      shopNow: "Shop Now",
+      contactUs: "Contact Us",
+      quickLinks: "Quick Links",
+      categories: "Categories",
+      contactInfo: "Contact Info",
+      indoorPlants: "Indoor Plants",
+      outdoorPlants: "Outdoor Plants",
+      succulents: "Succulents",
+      plantCare: "Plant Care",
+      footerDescription: "Bringing nature to your home with the finest collection of plants and expert care guidance.",
+      copyright: "© 2024 Paudha Bhai. All rights reserved.",
+      voiceAssistant: "Voice Assistant",
+      listening: "Listening...",
+      clickToSpeak: "Click to speak"
+    },
+    hi: {
+      home: "होम",
+      shop: "दुकान",
+      about: "हमारे बारे में",
+      contact: "संपर्क",
+      getStarted: "शुरू करें",
+      bringNature: "प्रकृति को",
+      toYourHome: "अपने घर लाएं",
+      heroDescription: "हमारे सुंदर पौधों के संग्रह की खोज करें जो आपके स्थान को हरित स्वर्ग में बदल देंगे। शुरुआती और विशेषज्ञों दोनों के लिए परफेक्ट।",
+      shopPlants: "पौधे खरीदें",
+      learnMore: "और जानें",
+      happyCustomers: "खुश ग्राहक",
+      plantVarieties: "पौधों की किस्में",
+      rating: "रेटिंग",
+      whyChooseUs: "हमें क्यों चुनें?",
+      whyChooseDescription: "हम आपकी बागवानी यात्रा को सफल बनाने के लिए सर्वोत्तम सेवा और उच्चतम गुणवत्ता के पौधे प्रदान करते हैं।",
+      freeDelivery: "मुफ्त डिलीवरी",
+      freeDeliveryDesc: "₹2,000 से अधिक के ऑर्डर पर मुफ्त डिलीवरी। अपने पौधों को सुरक्षित रूप से अपने दरवाजे तक पहुंचाएं।",
+      plantGuarantee: "पौधे की गारंटी",
+      plantGuaranteeDesc: "सभी पौधों पर 30-दिन की गारंटी। हम सुनिश्चित करते हैं कि वे स्वस्थ और पनपते हुए पहुंचें।",
+      expertSupport: "विशेषज्ञ सहायता",
+      expertSupportDesc: "हमारे पौधों के विशेषज्ञों से सलाह लें। हम आपके पौधों को फलने-फूलने में मदद करने के लिए यहां हैं।",
+      featuredPlants: "विशेष पौधे",
+      featuredDesc: "हमारे सबसे लोकप्रिय और सुंदर पौधों की खोज करें",
+      addToCart: "कार्ट में जोड़ें",
+      viewAllPlants: "सभी पौधे देखें",
+      readyToStart: "अपनी पौधों की यात्रा शुरू करने के लिए तैयार हैं?",
+      readyDescription: "हजारों खुश ग्राहकों में शामिल हों जिन्होंने हमारे सुंदर पौधों से अपने घरों को बदल दिया है। आज ही शुरू करें!",
+      shopNow: "अभी खरीदें",
+      contactUs: "संपर्क करें",
+      quickLinks: "त्वरित लिंक",
+      categories: "श्रेणियां",
+      contactInfo: "संपर्क जानकारी",
+      indoorPlants: "घरेलू पौधे",
+      outdoorPlants: "बाहरी पौधे",
+      succulents: "रसीले पौधे",
+      plantCare: "पौधों की देखभाल",
+      footerDescription: "बेहतरीन पौधों के संग्रह और विशेषज्ञ देखभाल मार्गदर्शन के साथ आपके घर में प्रकृति लाना।",
+      copyright: "© 2024 पौधा भाई। सभी अधिकार सुरक्षित।",
+      voiceAssistant: "आवाज सहायक",
+      listening: "सुन रहा है...",
+      clickToSpeak: "बोलने के लिए क्लिक करें"
+    }
+  };
+
+  const t = translations[language];
+
+  const handleVoiceCommand = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Voice recognition not supported in this browser');
+      return;
+    }
+
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = language === 'hi' ? 'hi-IN' : 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    setIsListening(true);
+
+    recognition.onresult = (event: any) => {
+      const command = event.results[0][0].transcript.toLowerCase();
+      console.log('Voice command:', command);
+      
+      // Voice navigation commands
+      if (command.includes('shop') || command.includes('दुकान')) {
+        window.location.href = '/shop';
+      } else if (command.includes('about') || command.includes('हमारे बारे में')) {
+        window.location.href = '/about';
+      } else if (command.includes('contact') || command.includes('संपर्क')) {
+        window.location.href = '/contact';
+      } else if (command.includes('home') || command.includes('होम')) {
+        window.location.href = '/';
+      } else {
+        // Text-to-speech response
+        const speech = new SpeechSynthesisUtterance(
+          language === 'hi' 
+            ? 'मैं आपकी मदद कर सकता हूं। कहें "दुकान", "हमारे बारे में", या "संपर्क" नेविगेट करने के लिए।'
+            : 'I can help you navigate. Say "shop", "about", or "contact" to go to those pages.'
+        );
+        speech.lang = language === 'hi' ? 'hi-IN' : 'en-US';
+        speechSynthesis.speak(speech);
+      }
+    };
+
+    recognition.onerror = () => {
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -14,7 +158,7 @@ const Index = () => {
       <header className="bg-background/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-28">
-            {/* Logo - Made much bigger */}
+            {/* Logo */}
             <div className="flex items-center">
               <img 
                 src="/lovable-uploads/5d45b831-8bef-4a01-941e-60e75e8bc270.png" 
@@ -25,14 +169,37 @@ const Index = () => {
             
             {/* Navigation */}
             <nav className="hidden md:flex space-x-8">
-              <Link to="/" className="text-foreground hover:text-green-600 transition-colors font-medium">Home</Link>
-              <Link to="/shop" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Shop</Link>
-              <Link to="/about" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">About</Link>
-              <Link to="/contact" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Contact</Link>
+              <Link to="/" className="text-foreground hover:text-green-600 transition-colors font-medium">{t.home}</Link>
+              <Link to="/shop" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">{t.shop}</Link>
+              <Link to="/about" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">{t.about}</Link>
+              <Link to="/contact" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">{t.contact}</Link>
             </nav>
             
-            {/* Theme Toggle & CTA */}
+            {/* Controls */}
             <div className="flex items-center gap-4">
+              {/* Language Selector */}
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger className="w-20">
+                  <Globe className="h-4 w-4" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">EN</SelectItem>
+                  <SelectItem value="hi">हिं</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Voice Assistant */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleVoiceCommand}
+                className={`w-9 h-9 p-0 ${isListening ? 'text-red-500' : ''}`}
+                title={t.voiceAssistant}
+              >
+                {isListening ? <Volume2 className="h-4 w-4 animate-pulse" /> : <Mic className="h-4 w-4" />}
+              </Button>
+
+              {/* Theme Toggle */}
               <Button
                 variant="ghost"
                 size="sm"
@@ -43,9 +210,10 @@ const Index = () => {
                 <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
               </Button>
+
               <Link to="/shop">
                 <Button className="bg-green-600 hover:bg-green-700 text-white px-6">
-                  Get Started
+                  {t.getStarted}
                 </Button>
               </Link>
             </div>
@@ -60,24 +228,24 @@ const Index = () => {
             <div className="space-y-8">
               <div className="space-y-6">
                 <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
-                  Bring Nature
-                  <span className="text-green-600 block">To Your Home</span>
+                  {t.bringNature}
+                  <span className="text-green-600 block">{t.toYourHome}</span>
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-md">
-                  Discover our collection of beautiful plants that will transform your space into a green paradise. Perfect for beginners and experts alike.
+                  {t.heroDescription}
                 </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/shop">
                   <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
-                    Shop Plants
+                    {t.shopPlants}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <Link to="/about">
                   <Button size="lg" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20 px-8 py-3">
-                    Learn More
+                    {t.learnMore}
                   </Button>
                 </Link>
               </div>
@@ -86,15 +254,15 @@ const Index = () => {
               <div className="flex gap-8 pt-4">
                 <div>
                   <p className="text-2xl font-bold text-foreground">1000+</p>
-                  <p className="text-sm text-muted-foreground">Happy Customers</p>
+                  <p className="text-sm text-muted-foreground">{t.happyCustomers}</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-foreground">500+</p>
-                  <p className="text-sm text-muted-foreground">Plant Varieties</p>
+                  <p className="text-sm text-muted-foreground">{t.plantVarieties}</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-foreground">4.8</p>
-                  <p className="text-sm text-muted-foreground">Rating</p>
+                  <p className="text-sm text-muted-foreground">{t.rating}</p>
                 </div>
               </div>
             </div>
@@ -130,9 +298,9 @@ const Index = () => {
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Us?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{t.whyChooseUs}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We provide the best service and highest quality plants to make your gardening journey successful.
+              {t.whyChooseDescription}
             </p>
           </div>
           
@@ -142,8 +310,8 @@ const Index = () => {
                 <div className="bg-green-100 dark:bg-green-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Truck className="h-8 w-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-card-foreground">Free Delivery</h3>
-                <p className="text-muted-foreground">Free delivery on orders over ₹2,000. Get your plants delivered safely to your doorstep.</p>
+                <h3 className="text-xl font-semibold mb-3 text-card-foreground">{t.freeDelivery}</h3>
+                <p className="text-muted-foreground">{t.freeDeliveryDesc}</p>
               </CardContent>
             </Card>
             
@@ -152,8 +320,8 @@ const Index = () => {
                 <div className="bg-green-100 dark:bg-green-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield className="h-8 w-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-card-foreground">Plant Guarantee</h3>
-                <p className="text-muted-foreground">30-day guarantee on all plants. We ensure they arrive healthy and thriving.</p>
+                <h3 className="text-xl font-semibold mb-3 text-card-foreground">{t.plantGuarantee}</h3>
+                <p className="text-muted-foreground">{t.plantGuaranteeDesc}</p>
               </CardContent>
             </Card>
             
@@ -162,8 +330,8 @@ const Index = () => {
                 <div className="bg-green-100 dark:bg-green-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-card-foreground">Expert Support</h3>
-                <p className="text-muted-foreground">Get advice from our plant experts. We're here to help your plants flourish.</p>
+                <h3 className="text-xl font-semibold mb-3 text-card-foreground">{t.expertSupport}</h3>
+                <p className="text-muted-foreground">{t.expertSupportDesc}</p>
               </CardContent>
             </Card>
           </div>
@@ -174,8 +342,8 @@ const Index = () => {
       <section className="py-16 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Featured Plants</h2>
-            <p className="text-muted-foreground">Discover our most popular and beautiful plants</p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{t.featuredPlants}</h2>
+            <p className="text-muted-foreground">{t.featuredDesc}</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -187,13 +355,13 @@ const Index = () => {
                 rating: 4.8
               },
               {
-                image: "https://images.unsplash.com/photo-1509423350716-97f2360af7e4?w=400&h=400&fit=crop&crop=center",
+                image: "https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?w=400&h=400&fit=crop&crop=center",
                 name: "Snake Plant",
                 price: "₹1,280",
                 rating: 4.9
               },
               {
-                image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop&crop=center",
+                image: "https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=400&h=400&fit=crop&crop=center",
                 name: "Fiddle Leaf Fig",
                 price: "₹2,600",
                 rating: 4.7
@@ -232,7 +400,7 @@ const Index = () => {
                       <span className="text-2xl font-bold text-green-600">{plant.price}</span>
                       <Button size="sm" className="bg-green-600 hover:bg-green-700">
                         <ShoppingCart className="h-4 w-4 mr-2" />
-                        Add to Cart
+                        {t.addToCart}
                       </Button>
                     </div>
                   </div>
@@ -242,10 +410,12 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20">
-              View All Plants
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="/shop">
+              <Button size="lg" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20">
+                {t.viewAllPlants}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -254,19 +424,23 @@ const Index = () => {
       <section className="py-16 bg-green-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Start Your Plant Journey?
+            {t.readyToStart}
           </h2>
           <p className="text-green-100 text-lg mb-8 max-w-2xl mx-auto">
-            Join thousands of happy customers who have transformed their homes with our beautiful plants. Get started today!
+            {t.readyDescription}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-green-600 hover:bg-gray-50 px-8">
-              Shop Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-8">
-              Contact Us
-            </Button>
+            <Link to="/shop">
+              <Button size="lg" className="bg-white text-green-600 hover:bg-gray-50 px-8">
+                {t.shopNow}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-8">
+                {t.contactUs}
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -282,32 +456,32 @@ const Index = () => {
                 className="h-12 w-auto mb-4 filter brightness-110 contrast-110"
               />
               <p className="text-muted-foreground">
-                Bringing nature to your home with the finest collection of plants and expert care guidance.
+                {t.footerDescription}
               </p>
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4 text-foreground">Quick Links</h3>
+              <h3 className="font-semibold mb-4 text-foreground">{t.quickLinks}</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li><Link to="/" className="hover:text-foreground transition-colors">Home</Link></li>
-                <li><Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link></li>
-                <li><Link to="/about" className="hover:text-foreground transition-colors">About</Link></li>
-                <li><Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
+                <li><Link to="/" className="hover:text-foreground transition-colors">{t.home}</Link></li>
+                <li><Link to="/shop" className="hover:text-foreground transition-colors">{t.shop}</Link></li>
+                <li><Link to="/about" className="hover:text-foreground transition-colors">{t.about}</Link></li>
+                <li><Link to="/contact" className="hover:text-foreground transition-colors">{t.contact}</Link></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4 text-foreground">Categories</h3>
+              <h3 className="font-semibold mb-4 text-foreground">{t.categories}</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Indoor Plants</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Outdoor Plants</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Succulents</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Plant Care</a></li>
+                <li><Link to="/shop" className="hover:text-foreground transition-colors">{t.indoorPlants}</Link></li>
+                <li><Link to="/shop" className="hover:text-foreground transition-colors">{t.outdoorPlants}</Link></li>
+                <li><Link to="/shop" className="hover:text-foreground transition-colors">{t.succulents}</Link></li>
+                <li><Link to="/shop" className="hover:text-foreground transition-colors">{t.plantCare}</Link></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4 text-foreground">Contact Info</h3>
+              <h3 className="font-semibold mb-4 text-foreground">{t.contactInfo}</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>Sahil Lenka</li>
                 <li>Email: sahillenka44@gmail.com</li>
@@ -318,7 +492,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 Paudha Bhai. All rights reserved.</p>
+            <p>{t.copyright}</p>
           </div>
         </div>
       </footer>

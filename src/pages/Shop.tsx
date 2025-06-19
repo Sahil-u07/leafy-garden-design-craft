@@ -1,11 +1,73 @@
-import React from 'react';
-import { ShoppingCart, Heart, Star, Filter, Search } from 'lucide-react';
+
+import React, { useState } from 'react';
+import { ShoppingCart, Heart, Star, Filter, Search, Globe, Mic, Volume2, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useTheme } from '@/components/theme-provider';
 import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 const Shop = () => {
+  const { theme, setTheme } = useTheme();
+  const { toast } = useToast();
+  const [language, setLanguage] = useState('en');
+  const [isListening, setIsListening] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterCategory, setFilterCategory] = useState('all');
+
+  const translations = {
+    en: {
+      home: "Home",
+      shop: "Shop",
+      about: "About",
+      contact: "Contact",
+      cart: "Cart",
+      shopPlants: "Shop Plants",
+      shopDescription: "Discover our amazing collection of healthy plants for your home and garden",
+      searchPlants: "Search plants...",
+      filter: "Filter",
+      showing: "Showing",
+      products: "products",
+      addToCart: "Add to Cart",
+      addedToCart: "Added to cart!",
+      addedToWishlist: "Added to wishlist!",
+      removedFromWishlist: "Removed from wishlist!",
+      voiceAssistant: "Voice Assistant",
+      all: "All",
+      indoor: "Indoor",
+      outdoor: "Outdoor",
+      succulent: "Succulent"
+    },
+    hi: {
+      home: "होम",
+      shop: "दुकान",
+      about: "हमारे बारे में",
+      contact: "संपर्क",
+      cart: "कार्ट",
+      shopPlants: "पौधे खरीदें",
+      shopDescription: "अपने घर और बगीचे के लिए स्वस्थ पौधों का हमारा अद्भुत संग्रह खोजें",
+      searchPlants: "पौधे खोजें...",
+      filter: "फिल्टर",
+      showing: "दिखा रहे हैं",
+      products: "उत्पाद",
+      addToCart: "कार्ट में जोड़ें",
+      addedToCart: "कार्ट में जोड़ा गया!",
+      addedToWishlist: "इच्छा सूची में जोड़ा गया!",
+      removedFromWishlist: "इच्छा सूची से हटाया गया!",
+      voiceAssistant: "आवाज सहायक",
+      all: "सभी",
+      indoor: "घरेलू",
+      outdoor: "बाहरी",
+      succulent: "रसीले"
+    }
+  };
+
+  const t = translations[language];
+
   const plants = [
     {
       image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=400&fit=crop&crop=center",
@@ -121,6 +183,71 @@ const Shop = () => {
     }
   ];
 
+  const filteredPlants = plants.filter(plant => {
+    const matchesSearch = plant.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = filterCategory === 'all' || plant.category.toLowerCase() === filterCategory.toLowerCase();
+    return matchesSearch && matchesCategory;
+  });
+
+  const handleAddToCart = (plant) => {
+    setCart([...cart, plant]);
+    toast({
+      title: t.addedToCart,
+      description: `${plant.name} - ${plant.price}`,
+    });
+  };
+
+  const handleToggleWishlist = (plant) => {
+    const isInWishlist = wishlist.some(item => item.name === plant.name);
+    if (isInWishlist) {
+      setWishlist(wishlist.filter(item => item.name !== plant.name));
+      toast({
+        title: t.removedFromWishlist,
+        description: plant.name,
+      });
+    } else {
+      setWishlist([...wishlist, plant]);
+      toast({
+        title: t.addedToWishlist,
+        description: plant.name,
+      });
+    }
+  };
+
+  const handleVoiceCommand = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Voice recognition not supported in this browser');
+      return;
+    }
+
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = language === 'hi' ? 'hi-IN' : 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    setIsListening(true);
+
+    recognition.onresult = (event: any) => {
+      const command = event.results[0][0].transcript.toLowerCase();
+      console.log('Voice command:', command);
+      
+      if (command.includes('home') || command.includes('होम')) {
+        window.location.href = '/';
+      } else if (command.includes('about') || command.includes('हमारे बारे में')) {
+        window.location.href = '/about';
+      } else if (command.includes('contact') || command.includes('संपर्क')) {
+        window.location.href = '/contact';
+      } else if (command.includes('search') || command.includes('खोज')) {
+        const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
+        if (searchInput) searchInput.focus();
+      }
+    };
+
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+    recognition.start();
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -136,15 +263,45 @@ const Shop = () => {
             </Link>
             
             <nav className="hidden md:flex space-x-8">
-              <Link to="/" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Home</Link>
-              <Link to="/shop" className="text-foreground hover:text-green-600 transition-colors font-medium">Shop</Link>
-              <Link to="/about" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">About</Link>
-              <Link to="/contact" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Contact</Link>
+              <Link to="/" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">{t.home}</Link>
+              <Link to="/shop" className="text-foreground hover:text-green-600 transition-colors font-medium">{t.shop}</Link>
+              <Link to="/about" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">{t.about}</Link>
+              <Link to="/contact" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">{t.contact}</Link>
             </nav>
             
             <div className="flex items-center gap-4">
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger className="w-20">
+                  <Globe className="h-4 w-4" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">EN</SelectItem>
+                  <SelectItem value="hi">हिं</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleVoiceCommand}
+                className={`w-9 h-9 p-0 ${isListening ? 'text-red-500' : ''}`}
+                title={t.voiceAssistant}
+              >
+                {isListening ? <Volume2 className="h-4 w-4 animate-pulse" /> : <Mic className="h-4 w-4" />}
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="w-9 h-9 p-0"
+              >
+                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              </Button>
+
               <Button className="bg-green-600 hover:bg-green-700 text-white px-6">
-                Cart (0)
+                {t.cart} ({cart.length})
               </Button>
             </div>
           </div>
@@ -154,9 +311,9 @@ const Shop = () => {
       {/* Shop Hero */}
       <section className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Shop Plants</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-4">{t.shopPlants}</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our amazing collection of healthy plants for your home and garden
+            {t.shopDescription}
           </p>
         </div>
       </section>
@@ -168,15 +325,28 @@ const Shop = () => {
             <div className="flex items-center gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                <Input className="pl-10 w-64" placeholder="Search plants..." />
+                <Input 
+                  className="pl-10 w-64" 
+                  placeholder={t.searchPlants}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
-              <Button variant="outline" className="flex items-center gap-2">
-                <Filter className="h-4 w-4" />
-                Filter
-              </Button>
+              <Select value={filterCategory} onValueChange={setFilterCategory}>
+                <SelectTrigger className="w-32">
+                  <Filter className="h-4 w-4 mr-2" />
+                  {t.filter}
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t.all}</SelectItem>
+                  <SelectItem value="indoor">{t.indoor}</SelectItem>
+                  <SelectItem value="outdoor">{t.outdoor}</SelectItem>
+                  <SelectItem value="succulent">{t.succulent}</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              Showing {plants.length} products
+              {t.showing} {filteredPlants.length} {t.products}
             </div>
           </div>
         </div>
@@ -186,7 +356,7 @@ const Shop = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {plants.map((plant, index) => (
+            {filteredPlants.map((plant, index) => (
               <Card key={index} className="border shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
                 <CardContent className="p-0">
                   <div className="relative">
@@ -198,9 +368,12 @@ const Shop = () => {
                     <Button 
                       size="sm" 
                       variant="outline" 
-                      className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm hover:bg-background"
+                      className={`absolute top-4 right-4 bg-background/90 backdrop-blur-sm hover:bg-background ${
+                        wishlist.some(item => item.name === plant.name) ? 'text-red-500' : ''
+                      }`}
+                      onClick={() => handleToggleWishlist(plant)}
                     >
-                      <Heart className="h-4 w-4" />
+                      <Heart className={`h-4 w-4 ${wishlist.some(item => item.name === plant.name) ? 'fill-current' : ''}`} />
                     </Button>
                     <div className="absolute top-4 left-4 bg-green-600 text-white px-2 py-1 rounded text-xs font-medium">
                       {plant.category}
@@ -224,9 +397,13 @@ const Shop = () => {
                         <span className="text-2xl font-bold text-green-600">{plant.price}</span>
                         <span className="text-sm text-muted-foreground line-through">{plant.originalPrice}</span>
                       </div>
-                      <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                      <Button 
+                        size="sm" 
+                        className="bg-green-600 hover:bg-green-700"
+                        onClick={() => handleAddToCart(plant)}
+                      >
                         <ShoppingCart className="h-4 w-4 mr-2" />
-                        Add to Cart
+                        {t.addToCart}
                       </Button>
                     </div>
                   </div>
