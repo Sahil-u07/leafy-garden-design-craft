@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { ArrowRight, Leaf, Truck, Shield, Users, Star, ShoppingCart, Heart, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTheme } from '@/components/theme-provider';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const { theme, setTheme } = useTheme();
@@ -13,22 +13,22 @@ const Index = () => {
       {/* Header */}
       <header className="bg-background/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-24">
-            {/* Logo - Enhanced Paudha Bhai logo with better visibility */}
+          <div className="flex justify-between items-center h-28">
+            {/* Logo - Made much bigger */}
             <div className="flex items-center">
               <img 
                 src="/lovable-uploads/5d45b831-8bef-4a01-941e-60e75e8bc270.png" 
                 alt="Paudha Bhai" 
-                className="h-20 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                className="h-24 w-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300 brightness-110 contrast-125"
               />
             </div>
             
             {/* Navigation */}
             <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-foreground hover:text-green-600 transition-colors font-medium">Home</a>
-              <a href="#" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Shop</a>
-              <a href="#" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">About</a>
-              <a href="#" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Contact</a>
+              <Link to="/" className="text-foreground hover:text-green-600 transition-colors font-medium">Home</Link>
+              <Link to="/shop" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Shop</Link>
+              <Link to="/about" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">About</Link>
+              <Link to="/contact" className="text-muted-foreground hover:text-green-600 transition-colors font-medium">Contact</Link>
             </nav>
             
             {/* Theme Toggle & CTA */}
@@ -43,9 +43,11 @@ const Index = () => {
                 <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
               </Button>
-              <Button className="bg-green-600 hover:bg-green-700 text-white px-6">
-                Get Started
-              </Button>
+              <Link to="/shop">
+                <Button className="bg-green-600 hover:bg-green-700 text-white px-6">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -67,13 +69,17 @@ const Index = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
-                  Shop Plants
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button size="lg" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20 px-8 py-3">
-                  Learn More
-                </Button>
+                <Link to="/shop">
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
+                    Shop Plants
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to="/about">
+                  <Button size="lg" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20 px-8 py-3">
+                    Learn More
+                  </Button>
+                </Link>
               </div>
               
               {/* Stats */}
@@ -273,7 +279,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/5d45b831-8bef-4a01-941e-60e75e8bc270.png" 
                 alt="Paudha Bhai" 
-                className="h-10 w-auto mb-4 filter brightness-110 contrast-110"
+                className="h-12 w-auto mb-4 filter brightness-110 contrast-110"
               />
               <p className="text-muted-foreground">
                 Bringing nature to your home with the finest collection of plants and expert care guidance.
@@ -283,10 +289,10 @@ const Index = () => {
             <div>
               <h3 className="font-semibold mb-4 text-foreground">Quick Links</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Home</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Shop</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Contact</a></li>
+                <li><Link to="/" className="hover:text-foreground transition-colors">Home</Link></li>
+                <li><Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link></li>
+                <li><Link to="/about" className="hover:text-foreground transition-colors">About</Link></li>
+                <li><Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
               </ul>
             </div>
             
@@ -303,10 +309,10 @@ const Index = () => {
             <div>
               <h3 className="font-semibold mb-4 text-foreground">Contact Info</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li>123 Garden Street</li>
+                <li>Sahil Lenka</li>
+                <li>Email: sahillenka44@gmail.com</li>
+                <li>Phone: +91 7439968486</li>
                 <li>New Delhi, Delhi 110001</li>
-                <li>Phone: +91 98765 43210</li>
-                <li>Email: hello@paudhabliai.com</li>
               </ul>
             </div>
           </div>
