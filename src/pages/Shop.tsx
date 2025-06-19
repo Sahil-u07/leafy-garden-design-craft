@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ShoppingCart, Heart, Star, Filter, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -17,7 +16,7 @@ const Shop = () => {
       category: "Indoor"
     },
     {
-      image: "https://images.unsplash.com/photo-1509423350716-97f2360af7e4?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1572688484438-313a6e50c333?w=400&h=400&fit=crop&crop=center",
       name: "Snake Plant",
       price: "₹1,280",
       originalPrice: "₹1,500",
@@ -55,6 +54,70 @@ const Shop = () => {
       originalPrice: "₹1,000",
       rating: 4.9,
       category: "Succulent"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center",
+      name: "Pothos",
+      price: "₹900",
+      originalPrice: "₹1,100",
+      rating: 4.7,
+      category: "Indoor"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop&crop=center",
+      name: "ZZ Plant",
+      price: "₹1,600",
+      originalPrice: "₹1,900",
+      rating: 4.8,
+      category: "Indoor"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1502780402662-acc01917189e?w=400&h=400&fit=crop&crop=center",
+      name: "Philodendron",
+      price: "₹1,300",
+      originalPrice: "₹1,550",
+      rating: 4.6,
+      category: "Indoor"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1493663284031-b7e3aaa4c4bc?w=400&h=400&fit=crop&crop=center",
+      name: "Jade Plant",
+      price: "₹700",
+      originalPrice: "₹900",
+      rating: 4.5,
+      category: "Succulent"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1605027990121-cbae9c0a0276?w=400&h=400&fit=crop&crop=center",
+      name: "Spider Plant",
+      price: "₹600",
+      originalPrice: "₹800",
+      rating: 4.7,
+      category: "Indoor"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1535455868629-ef5d6968e3d3?w=400&h=400&fit=crop&crop=center",
+      name: "Boston Fern",
+      price: "₹1,100",
+      originalPrice: "₹1,300",
+      rating: 4.4,
+      category: "Indoor"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=400&h=400&fit=crop&crop=center",
+      name: "Cactus Mix",
+      price: "₹500",
+      originalPrice: "₹700",
+      rating: 4.8,
+      category: "Succulent"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1416205303808-2d3aa9b4fce4?w=400&h=400&fit=crop&crop=center",
+      name: "Lavender",
+      price: "₹1,000",
+      originalPrice: "₹1,200",
+      rating: 4.9,
+      category: "Outdoor"
     }
   ];
 
