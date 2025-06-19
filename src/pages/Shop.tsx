@@ -16,7 +16,7 @@ const Shop = () => {
       category: "Indoor"
     },
     {
-      image: "https://images.unsplash.com/photo-1572688484438-313a6e50c333?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1593691509543-c55fb32d8de5?w=400&h=400&fit=crop&crop=center",
       name: "Snake Plant",
       price: "₹1,280",
       originalPrice: "₹1,500",
@@ -24,7 +24,7 @@ const Shop = () => {
       category: "Indoor"
     },
     {
-      image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=400&h=400&fit=crop&crop=center",
       name: "Fiddle Leaf Fig",
       price: "₹2,600",
       originalPrice: "₹3,000",
@@ -48,7 +48,7 @@ const Shop = () => {
       category: "Indoor"
     },
     {
-      image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1509423350716-97f2360af7e4?w=400&h=400&fit=crop&crop=center",
       name: "Aloe Vera",
       price: "₹800",
       originalPrice: "₹1,000",
@@ -56,7 +56,7 @@ const Shop = () => {
       category: "Succulent"
     },
     {
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=400&fit=crop&crop=center",
       name: "Pothos",
       price: "₹900",
       originalPrice: "₹1,100",
@@ -64,7 +64,7 @@ const Shop = () => {
       category: "Indoor"
     },
     {
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=400&fit=crop&crop=center",
       name: "ZZ Plant",
       price: "₹1,600",
       originalPrice: "₹1,900",
@@ -80,7 +80,7 @@ const Shop = () => {
       category: "Indoor"
     },
     {
-      image: "https://images.unsplash.com/photo-1493663284031-b7e3aaa4c4bc?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=400&fit=crop&crop=center",
       name: "Jade Plant",
       price: "₹700",
       originalPrice: "₹900",
@@ -88,7 +88,7 @@ const Shop = () => {
       category: "Succulent"
     },
     {
-      image: "https://images.unsplash.com/photo-1605027990121-cbae9c0a0276?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1583317094806-b64f20ad2d4d?w=400&h=400&fit=crop&crop=center",
       name: "Spider Plant",
       price: "₹600",
       originalPrice: "₹800",
@@ -112,7 +112,7 @@ const Shop = () => {
       category: "Succulent"
     },
     {
-      image: "https://images.unsplash.com/photo-1416205303808-2d3aa9b4fce4?w=400&h=400&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1611909023032-2d6b3134ecba?w=400&h=400&fit=crop&crop=center",
       name: "Lavender",
       price: "₹1,000",
       originalPrice: "₹1,200",
